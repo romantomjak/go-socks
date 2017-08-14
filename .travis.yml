@@ -1,0 +1,13 @@
+language: go
+go:
+  - 1.8
+  - master
+  # NOTE: no tip, see https://github.com/travis-ci/gimme/issues/38
+before_script:
+  - go vet
+install:
+  - go install
+script:
+  - go test
+notifications:
+  email: false
