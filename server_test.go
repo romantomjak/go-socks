@@ -11,16 +11,16 @@ import (
 func getConnection(t *testing.T) net.Conn {
 	srv, err := NewSocks4Server()
 	if err != nil {
-		t.Fatalf("Error: %v", err)
+		t.Fatalf("Could not start SOCKS server: %v", err)
 	}
 
 	go func() {
-		srv.ListenAndServe("127.0.0.1:1080")
+		srv.ListenAndServe("localhost:1080")
 	}()
 
-	conn, err := net.Dial("tcp", "127.0.0.1:1080")
+	conn, err := net.Dial("tcp", "localhost:1080")
 	if err != nil {
-		t.Fatalf("err: %v", err)
+		t.Fatalf("Could not connect to SOCKS server: %v", err)
 	}
 
 	return conn
