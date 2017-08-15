@@ -3,11 +3,9 @@ go:
   - 1.8
   - master
   # NOTE: no tip, see https://github.com/travis-ci/gimme/issues/38
-before_script:
-  - go vet
-install:
-  - go install
+before_install:
+  - go get github.com/mattn/goveralls
 script:
-  - go test
+  - $HOME/gopath/bin/goveralls -service=travis-ci
 notifications:
   email: false
