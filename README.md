@@ -13,6 +13,42 @@ SOCKS (SOCKS4, SOCKS4a, SOCKS5) proxy library for Go
 
 - Go 1.8
 
+## Client example
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+
+	"github.com/romantomjak/go-socks"
+)
+
+func main() {
+	// 1. connect to a SOCKS server
+	client, err := socks.NewV4Client("127.0.0.1:1234")
+	if err != nil {
+		panic(err)
+	}
+
+	// 2. instruct the server to relay connections to golang.org
+	conn, err := client.Connect("142.250.187.241:80", "roman")
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	// 3. fetch index.html via the relayed connection
+	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
+	body, err := io.ReadAll(conn)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s\n", body)
+}
+```
+
 ## Testing
 
 ```
