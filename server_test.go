@@ -1,4 +1,4 @@
-package go_socks
+package socks
 
 import (
 	"bytes"
