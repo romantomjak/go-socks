@@ -30,7 +30,7 @@ func NewV4Client(addr string) (*Client, error) {
 // to the server at addr. It is callers responsibility to close
 // the connection.
 func (c *Client) Connect(addr, username string) (net.Conn, error) {
-	conn, err := net.Dial("tcp", c.addr)
+	conn, err := net.DialTimeout("tcp", c.addr, 3 * time.Second)
 	if err != nil {
 		return nil, err
 	}
